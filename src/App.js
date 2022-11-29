@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
+
+  const url = "http://15.206.230.159/";
+  var [list, getlist] = useState('');
+  var news;
+  
+ 
+  axios.get(url)
+  .then((res) => {
+    news = res.data;
+    getlist(news[0].dataType);
+  })
+  .catch((error) => {
+    console.log(error)
+  });
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>{list}</p>
     </div>
   );
 }
